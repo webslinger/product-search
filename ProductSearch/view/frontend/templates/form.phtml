@@ -1,0 +1,95 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Last ordered items quickreorder
+ *
+ * @var $block \LDP\QuickReorder\Block\Reorder\OrderedItems
+ */
+?>
+
+<div class="block block-product-search" data-bind="scope: 'productSearch'">
+    <div class="messages no-display" data-bind="css: { 'no-display': !errors().length }, foreach: errors">
+        <div class="message error">
+            <div data-bind="text: message"></div>
+        </div>
+    </div>
+    <form class="form">
+        <fieldset class="fieldset">
+            <div class="field required">
+                <label for="" class="label">Minimum Price</label>
+                <div class="control">
+                    <input type="text" placeholder="From" required data-bind="textInput: lowRange, event: { change: updateMaximumRange }">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="" class=label>Maximum Price</label>
+                <div class="control">
+                    <input type="text" placeholder="To" required data-bind="textInput: highRange">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="" class="label">Sort by Price</label>
+                <div class="control">
+                    <select data-bind="options: sortingMethods, value: sortingMethod, event: { change: sort }"></select>
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action primary" data-bind="event: { click: search }">Search Products</button>
+            </div>
+        </div>
+    </form>
+    <table class="no-display data table" data-bind="css: { 'no-display': !results().length, 'working': working }">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: results">
+            <tr>
+                <td>
+                    <!-- ko if: thumb -->
+                    <img data-bind="attr: { src: thumb, alt: name }" width="75" height="75">
+                    <!-- /ko -->
+                </td>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: sku"></td>
+                <td data-bind="text: '$' + price"></td>
+                <td data-bind="text: qty"></td>
+                <td>
+                    <a data-bind="attr: { href: url }" target="_blank">
+                        View Product
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "productSearch": {
+                    "component": "Crimson_ProductSearch/js/product-search",
+                    "form": "#search-validate-detail"
+                }
+            }
+        }
+    }
+}
+</script>
