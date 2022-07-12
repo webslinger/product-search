@@ -1,1 +1,1 @@
-Place in app/code/crimson/
+Place in app/code/Crimson/
